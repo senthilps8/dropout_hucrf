@@ -1,0 +1,7 @@
+E = DxH -> W
+labE = KxH -> V
+A = KxK -> A
+E_bias = 1xH -> b
+labE_bias = 1xK -> c
+pi = Kx1 -> start factor (pi)
+tau = Kx1 -> final factor (tau)
