@@ -56,7 +56,10 @@ function [C, dC, x] = crf_grad(x, train_X, train_T, model, lambda, pos_pi, pos_t
         
     % Loop over training sequences
     for i=1:length(train_X)
-
+	
+	%TODO: Drop Column from model.(E, labE, E_bias)
+	keyboard()
+	
         % Perform forward-backward algorithm for CRFs
         if any(strcmpi(model.type, {'drbm_discrete', 'drbm_continuous'}))
             [alpha, beta, rho, emission, energy] = forward_backward_crf(train_X{i}, model);
@@ -64,6 +67,9 @@ function [C, dC, x] = crf_grad(x, train_X, train_T, model, lambda, pos_pi, pos_t
             [alpha, beta, rho, emission] = forward_backward_crf(train_X{i}, model);
         end
         
+	%TODO: Check dimensions of alpha, beta, rho, emission, energy
+	%TODO: Check if LogLL can be computed without changes
+	
         % Sum conditional log-likelihood         
         L = L + model.pi( train_T{i}(1));
         L = L + model.tau(train_T{i}(end));
@@ -83,6 +89,7 @@ function [C, dC, x] = crf_grad(x, train_X, train_T, model, lambda, pos_pi, pos_t
             gamma = alpha .* beta;
             gamma = bsxfun(@rdivide, gamma, sum(gamma, 1) + realmin);
             
+	    %TODO: Check dimensions of neg_pi, neg_tau, neg_A
             % Sum gradient with respect to transition factors
             neg_pi  = neg_pi  + gamma(:,1);
             neg_tau = neg_tau + gamma(:,end);
@@ -110,6 +117,7 @@ function [C, dC, x] = crf_grad(x, train_X, train_T, model, lambda, pos_pi, pos_t
                 end
             elseif any(strcmpi(model.type, {'drbm_discrete', 'drbm_continuous'}))
                 
+		%TODO: Check if sigmoids_label_post can be computed
                 % Precompute sigmoids of energies, and products with label posterior
                 gamma = gamma';
                 sigmoids = 1 ./ (1 + exp(-energy));
@@ -117,33 +125,36 @@ function [C, dC, x] = crf_grad(x, train_X, train_T, model, lambda, pos_pi, pos_t
                 for k=1:K
                     sigmoids_label_post(:,:,k) = bsxfun(@times, sigmoids(:,:,k), gamma(:,k)); 
                 end
-    
+    		
+		%TODO: Check dimensions of neg_E (should be DxH-1)
                 % Sum gradient with respect to the data-hidden weights                
                 if strcmpi(model.type, 'drbm_continuous')
                     for k=1:K
                         neg_E = neg_E + train_X{i} * (bsxfun(@times, (train_T{i} == k)', sigmoids(:,:,k)) - sigmoids_label_post(:,:,k));
                     end
                 elseif strcmpi(model.type, 'drbm_discrete')
-                    warning('Use the C++ version of CRF_GRAD for better performance on discrete data.');                
-                    for k=1:K
-                        ind = find(train_T{i} == k);
-                        for j=1:length(ind)
-                            neg_E(train_X{i}{ind(j)},:) = bsxfun(@plus, neg_E(train_X{i}{ind(j)},:), sigmoids(ind(j),:,k));
-                        end                                        
-                    end
-                    for k=1:K       % NOTE: This can be done more efficiently!
-                        for j=1:length(train_T{i})
-                            neg_E(train_X{i}{j},:) = bsxfun(@minus, neg_E(train_X{i}{j},:), sigmoids_label_post(j,:,k));
-                        end
-                    end
+                %    warning('Use the C++ version of CRF_GRAD for better performance on discrete data.');                
+                %    for k=1:K
+                %        ind = find(train_T{i} == k);
+                %        for j=1:length(ind)
+                %            neg_E(train_X{i}{ind(j)},:) = bsxfun(@plus, neg_E(train_X{i}{ind(j)},:), sigmoids(ind(j),:,k));
+                %        end                                        
+                %    end
+                %    for k=1:K       % NOTE: This can be done more efficiently!
+                %        for j=1:length(train_T{i})
+                %            neg_E(train_X{i}{j},:) = bsxfun(@minus, neg_E(train_X{i}{j},:), sigmoids_label_post(j,:,k));
+                %        end
+                %    end
                 end
 
+		%TODO: Check dimension of neg_labE (should be KxH-1)
                 % Compute gradient with respect to label-hidden weights
                 for k=1:K          % NOTE: This can be done more efficiently!
                     neg_labE(k,:) = neg_labE(k,:) + sum(sigmoids(train_T{i} == k,:,k), 1) - ...
                                                     sum(sigmoids_label_post(:,:,k), 1);
                 end
-
+		
+		%TODO: Check dimension of neg_E_bias (should be 1xH-1)
                 % Compute gradient with respect to bias on hidden units
                 for k=1:K
                     neg_E_bias = neg_E_bias + sum(sigmoids(train_T{i} == k,:,k), 1) - ...
@@ -154,6 +165,7 @@ function [C, dC, x] = crf_grad(x, train_X, train_T, model, lambda, pos_pi, pos_t
                 label_matrix = zeros(length(train_T{i}), K);
                 label_matrix(sub2ind([length(train_T{i}) K], 1:length(train_T{i}), train_T{i})) = 1;
                 neg_labE_bias = neg_labE_bias + sum(label_matrix - gamma, 1);
+		%TODO: Change dimensions of neg_E_bias, neg_labE, neg_E
             else
                 error('Unknown type.');
             end
