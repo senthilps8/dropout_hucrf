@@ -5,3 +5,11 @@ E_bias = 1xH -> b
 labE_bias = 1xK -> c
 pi = Kx1 -> start factor (pi)
 tau = Kx1 -> final factor (tau)
+
+
+Changes to be made
+==================
+
+1. Drop a single specific column from W (E) and V (labE)
+2. Drop the same column from b (E_bias)
+3. 

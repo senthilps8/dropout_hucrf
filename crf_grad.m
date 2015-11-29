@@ -33,7 +33,8 @@ function [C, dC, x] = crf_grad(x, train_X, train_T, model, lambda, pos_pi, pos_t
     end
     K = length(model.pi);
     D = size(model.E, 1);
-
+    % Changes - avemula
+    H = size(model.E, 2); % Number of hidden states in the model
     % Initialize negative sums
     L = 0;
     if nargout > 1
@@ -56,6 +57,14 @@ function [C, dC, x] = crf_grad(x, train_X, train_T, model, lambda, pos_pi, pos_t
         
     % Loop over training sequences
     for i=1:length(train_X)
+        
+        % Randomly generate the vector r of binary random variables
+        % according to a bernoulli distribution
+        r = rand(H, 1); % Random vector of size H
+        r = r < 0.5; % Use a coin toss distribution for now
+        
+        % Drop columns of E, labE for which r has value 0
+        model.E 
 
         % Perform forward-backward algorithm for CRFs
         if any(strcmpi(model.type, {'drbm_discrete', 'drbm_continuous'}))
