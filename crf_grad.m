@@ -55,24 +55,35 @@ function [C, dC, x] = crf_grad(x, train_X, train_T, model, lambda, pos_pi, pos_t
         exp_A = exp(model.A);
     end
         
-    compE = model.E;
-    complabE = model.labE;
-    compE_bias = model.E_bias;
+    %compE = model.E;
+    %complabE = model.labE;
+    %compE_bias = model.E_bias;
+
+    back_model = model;
+    all_r = ones(H,1);
+
     % Loop over training sequences
     for i=1:length(train_X)
         
         % Randomly generate the vector r of binary random variables
         % according to a bernoulli distribution
+
         %r = rand(H, 1); % Random vector of size H
                         %r = r < 0.5; % Use a coin toss distribution for now
+
+        r = rand(H, 1); % Random vector of size H
+        r = r < 0.5; % Use a coin toss distribution for now
+	all_r = all_r + double(r);
         
+	model.E = back_model.E(:,r);
+	model.labE = back_model.labE(:,r);
+	model.E_bias = back_model.E_bias(:,r);
         % Drop columns of E, labE for which r has value 0
         %model.E = compE(:, r);
         %model.labE = complabE(:, r);
         %model.E_bias = compE_bias(:, r);
 	
 	%TODO: Drop Column from model.(E, labE, E_bias)
-	%keyboard()
 	
         % Perform forward-backward algorithm for CRFs
         if any(strcmpi(model.type, {'drbm_discrete', 'drbm_continuous'}))
@@ -139,13 +150,18 @@ function [C, dC, x] = crf_grad(x, train_X, train_T, model, lambda, pos_pi, pos_t
                 for k=1:K
                     sigmoids_label_post(:,:,k) = bsxfun(@times, sigmoids(:,:,k), gamma(:,k)); 
                 end
+		
+		%TODO: Modify size of sigmoids_label_post and sigmoids
     		
 		%TODO: Check dimensions of neg_E (should be DxH-1)
                 % Sum gradient with respect to the data-hidden weights                
                 if strcmpi(model.type, 'drbm_continuous')
+		    %TODO: Check dimension of sum
+		    tmp_neg_E = zeros(size(model.E));
                     for k=1:K
-                        neg_E = neg_E + train_X{i} * (bsxfun(@times, (train_T{i} == k)', sigmoids(:,:,k)) - sigmoids_label_post(:,:,k));
+                        tmp_neg_E = tmp_neg_E + train_X{i} * (bsxfun(@times, (train_T{i} == k)', sigmoids(:,:,k)) - sigmoids_label_post(:,:,k));
                     end
+		    neg_E(:,r) = neg_E(:,r) + tmp_neg_E;
                 elseif strcmpi(model.type, 'drbm_discrete')
                 %    warning('Use the C++ version of CRF_GRAD for better performance on discrete data.');                
                 %    for k=1:K
@@ -163,18 +179,22 @@ function [C, dC, x] = crf_grad(x, train_X, train_T, model, lambda, pos_pi, pos_t
 
 		%TODO: Check dimension of neg_labE (should be KxH-1)
                 % Compute gradient with respect to label-hidden weights
+		tmp_neg_labE = zeros(size(model.labE));
                 for k=1:K          % NOTE: This can be done more efficiently!
-                    neg_labE(k,:) = neg_labE(k,:) + sum(sigmoids(train_T{i} == k,:,k), 1) - ...
+                    tmp_neg_labE(k,:) = tmp_neg_labE(k,:) + sum(sigmoids(train_T{i} == k,:,k), 1) - ...
                                                     sum(sigmoids_label_post(:,:,k), 1);
                 end
+		neg_labE(:,r) = neg_labE(:,r) + tmp_neg_labE;
 		
 		%TODO: Check dimension of neg_E_bias (should be 1xH-1)
                 % Compute gradient with respect to bias on hidden units
+		tmp_neg_E_bias = zeros(size(model.E_bias));
                 for k=1:K
-                    neg_E_bias = neg_E_bias + sum(sigmoids(train_T{i} == k,:,k), 1) - ...
+                    tmp_neg_E_bias = tmp_neg_E_bias + sum(sigmoids(train_T{i} == k,:,k), 1) - ...
                                               sum(sigmoids_label_post(:,:,k), 1);
                 end
-
+		neg_E_bias(:,r) = neg_E_bias(:,r) + tmp_neg_E_bias;
+		
                 % Compute the gradient with respect to bias on labels
                 label_matrix = zeros(length(train_T{i}), K);
                 label_matrix(sub2ind([length(train_T{i}) K], 1:length(train_T{i}), train_T{i})) = 1;
@@ -185,6 +205,9 @@ function [C, dC, x] = crf_grad(x, train_X, train_T, model, lambda, pos_pi, pos_t
             end
         end
     end
+    neg_E = bsxfun(@ldivide,neg_E,all_r');
+    neg_labE = bsxfun(@ldivide,neg_labE,all_r');
+    neg_E_bias = bsxfun(@ldivide,neg_E_bias,all_r');
 
     % Return cost function and gradient
     C = -L + lambda .* sum(x .^ 2);
