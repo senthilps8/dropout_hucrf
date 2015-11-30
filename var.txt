@@ -12,4 +12,5 @@ Changes to be made
 
 1. Drop a single specific column from W (E) and V (labE)
 2. Drop the same column from b (E_bias)
-3. 
+3.
+

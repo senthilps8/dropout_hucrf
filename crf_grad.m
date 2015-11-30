@@ -55,19 +55,24 @@ function [C, dC, x] = crf_grad(x, train_X, train_T, model, lambda, pos_pi, pos_t
         exp_A = exp(model.A);
     end
         
+    compE = model.E;
+    complabE = model.labE;
+    compE_bias = model.E_bias;
     % Loop over training sequences
     for i=1:length(train_X)
         
         % Randomly generate the vector r of binary random variables
         % according to a bernoulli distribution
-        r = rand(H, 1); % Random vector of size H
-        r = r < 0.5; % Use a coin toss distribution for now
+        %r = rand(H, 1); % Random vector of size H
+                        %r = r < 0.5; % Use a coin toss distribution for now
         
         % Drop columns of E, labE for which r has value 0
-        %model.E 
+        %model.E = compE(:, r);
+        %model.labE = complabE(:, r);
+        %model.E_bias = compE_bias(:, r);
 	
 	%TODO: Drop Column from model.(E, labE, E_bias)
-	keyboard()
+	%keyboard()
 	
         % Perform forward-backward algorithm for CRFs
         if any(strcmpi(model.type, {'drbm_discrete', 'drbm_continuous'}))
