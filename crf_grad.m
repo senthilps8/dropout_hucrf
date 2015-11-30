@@ -55,6 +55,7 @@ function [C, dC, x] = crf_grad(x, train_X, train_T, model, lambda, pos_pi, pos_t
         exp_A = exp(model.A);
     end
         
+    back_model = model;
     % Loop over training sequences
     for i=1:length(train_X)
         
@@ -63,11 +64,13 @@ function [C, dC, x] = crf_grad(x, train_X, train_T, model, lambda, pos_pi, pos_t
         r = rand(H, 1); % Random vector of size H
         r = r < 0.5; % Use a coin toss distribution for now
         
+	model.E = back_model.E(:,r);
+	model.labE = back_model.labE(:,r);
+	model.E_bias = back_model.E_bias(:,r);
         % Drop columns of E, labE for which r has value 0
         %model.E 
 	
 	%TODO: Drop Column from model.(E, labE, E_bias)
-	keyboard()
 	
         % Perform forward-backward algorithm for CRFs
         if any(strcmpi(model.type, {'drbm_discrete', 'drbm_continuous'}))
@@ -134,10 +137,13 @@ function [C, dC, x] = crf_grad(x, train_X, train_T, model, lambda, pos_pi, pos_t
                 for k=1:K
                     sigmoids_label_post(:,:,k) = bsxfun(@times, sigmoids(:,:,k), gamma(:,k)); 
                 end
+		
+		%TODO: Modify size of sigmoids_label_post and sigmoids
     		
 		%TODO: Check dimensions of neg_E (should be DxH-1)
                 % Sum gradient with respect to the data-hidden weights                
                 if strcmpi(model.type, 'drbm_continuous')
+		    keyboard()
                     for k=1:K
                         neg_E = neg_E + train_X{i} * (bsxfun(@times, (train_T{i} == k)', sigmoids(:,:,k)) - sigmoids_label_post(:,:,k));
                     end
