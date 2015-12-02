@@ -154,6 +154,7 @@ function model = train_crf(train_X, train_T, type, lambda, max_iter, no_hidden, 
         if strcmpi(optimizer, 'cg')
             x = minimize([model.pi(:); model.tau(:); model.A(:); model.E(:); model.labE(:); model.E_bias(:); model.labE_bias(:)], 'crf_grad', max_iter, train_X, train_T, model, lambda, pos_pi, pos_tau, pos_A, pos_E);        
         else
+            %keyboard();
             x = minFunc(@crf_grad, [model.pi(:); model.tau(:); model.A(:); model.E(:); model.labE(:); model.E_bias(:); model.labE_bias(:)], options, train_X, train_T, model, lambda, pos_pi, pos_tau, pos_A, pos_E);
         end
     end

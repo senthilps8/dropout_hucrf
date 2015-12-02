@@ -12,4 +12,12 @@ Changes to be made
 
 1. Drop a single specific column from W (E) and V (labE)
 2. Drop the same column from b (E_bias)
-3. 
+3.
+
+Suggestions
+===========
+1. Debugging the normalisation thing
+2. tolX change and see
+3. One minFunc iteration - same model
+4. Model train on all hidden states and drop states in the gradient
+5. Likelihood computation over all hidden states and gradient over only the surviving states
