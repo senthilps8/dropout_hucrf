@@ -63,7 +63,7 @@ function [C, dC, x] = crf_grad(x, train_X, train_T, model, lambda, pos_pi, pos_t
         % Randomly generate the vector r of binary random variables
         % according to a bernoulli distribution
         r = rand(H, 1); % Random vector of size H
-        r = r < 0.5; % Use a coin toss distribution for now
+        r = r < 0.9; % Use a coin toss distribution for now
 	all_r = all_r + double(r);
         
 	model.E = back_model.E(:,r);
@@ -194,9 +194,9 @@ function [C, dC, x] = crf_grad(x, train_X, train_T, model, lambda, pos_pi, pos_t
             end
         end
     end
-    neg_E = bsxfun(@ldivide,neg_E,all_r');
-    neg_labE = bsxfun(@ldivide,neg_labE,all_r');
-    neg_E_bias = bsxfun(@ldivide,neg_E_bias,all_r');
+    %neg_E = bsxfun(@ldivide,neg_E,all_r');
+    %neg_labE = bsxfun(@ldivide,neg_labE,all_r');
+    %neg_E_bias = bsxfun(@ldivide,neg_E_bias,all_r');
 
     % Return cost function and gradient
     C = -L + lambda .* sum(x .^ 2);

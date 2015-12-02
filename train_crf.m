@@ -135,7 +135,7 @@ function model = train_crf(train_X, train_T, type, lambda, max_iter, no_hidden, 
     addpath('minFunc');
     options.Method = 'lbfgs';
     options.Display = 'on';
-    options.TolFun = 1e-2;
+    options.TolFun = 1e-4;
     options.TolX = 1e-2;
     options.MaxIter = max_iter;
     if any(strcmpi(model.type, {'discrete', 'continuous'}))
