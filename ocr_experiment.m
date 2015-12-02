@@ -78,7 +78,7 @@ function err = ocr_experiment(type, no_hidden, lambda, rho)
     end
 
     % Perform 10-fold cross-validation
-    no_folds = 10;
+    no_folds = 4;
     err = ones(no_folds, 1);
     perm = randperm(length(X)); ind = 1;
     fold_size = floor(length(X) ./ no_folds);
