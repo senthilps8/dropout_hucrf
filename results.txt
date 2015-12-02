@@ -1,0 +1,254 @@
+Baseline OCR with 400 hidden states with LBFGS
+==============================================
+
+Fold 1 of 10...
+Precomputing positive part of gradient...
+Performing optimization using L-BFGS...
+ Iteration   FunEvals     Step Length    Function Val        Opt Cond
+Warning: Matrix is close to singular or badly scaled. Results may be inaccurate. RCOND =  1.218800e-21. 
+> In polyinterp (line 88)
+  In WolfeLineSearch (line 118)
+  In minFunc (line 1030)
+  In train_crf (line 158)
+  In ocr_experiment (line 143) 
+         1          3     1.69563e-06     1.46810e+05     4.16890e+06
+         2          4     1.00000e+00     1.41697e+05     1.34662e+06
+         3          5     1.00000e+00     1.41199e+05     7.52226e+05
+         4          6     1.00000e+00     1.40984e+05     6.07693e+05
+         5          7     1.00000e+00     1.40653e+05     5.16296e+05
+         6          8     1.00000e+00     1.40346e+05     9.75737e+05
+         7          9     1.00000e+00     1.39954e+05     7.72052e+05
+         8         10     1.00000e+00     1.39188e+05     9.43249e+05
+         9         11     1.00000e+00     1.37904e+05     1.36810e+06
+        10         12     1.00000e+00     1.34310e+05     2.21978e+06
+        11         14     2.96717e-01     1.32440e+05     2.46430e+06
+        12         15     1.00000e+00     1.30786e+05     2.36132e+06
+        13         16     1.00000e+00     1.30342e+05     2.58309e+06
+        14         17     1.00000e+00     1.29139e+05     2.30048e+06
+        15         18     1.00000e+00     1.27930e+05     2.08182e+06
+        16         19     1.00000e+00     1.27212e+05     2.49559e+06
+        17         20     1.00000e+00     1.25566e+05     2.11803e+06
+        18         21     1.00000e+00     1.23491e+05     2.91930e+06
+        19         23     5.34760e-01     1.20792e+05     4.68021e+06
+        20         25     4.03923e-01     1.19726e+05     4.48080e+06
+        21         27     2.78350e-01     1.18597e+05     3.68873e+06
+        22         28     1.00000e+00     1.15505e+05     2.71328e+06
+        23         29     1.00000e+00     1.12253e+05     2.81201e+06
+        24         30     1.00000e+00     1.08227e+05     3.51541e+06
+        25         31     1.00000e+00     1.03534e+05     4.29516e+06
+        26         32     1.00000e+00     1.00348e+05     3.05348e+06
+        27         33     1.00000e+00     9.79275e+04     2.27642e+06
+        28         35     5.05719e-01     9.58291e+04     2.83589e+06
+        29         36     1.00000e+00     9.53310e+04     3.35950e+06
+        30         37     1.00000e+00     9.23711e+04     2.88306e+06
+        31         38     1.00000e+00     8.60982e+04     2.57386e+06
+        32         39     1.00000e+00     8.03270e+04     2.79113e+06
+        33         40     1.00000e+00     7.16168e+04     1.95247e+06
+        34         41     1.00000e+00     6.63304e+04     2.02940e+06
+        35         42     1.00000e+00     6.44494e+04     1.36748e+06
+        36         43     1.00000e+00     6.27059e+04     1.29480e+06
+        37         44     1.00000e+00     6.07654e+04     1.38817e+06
+        38         45     1.00000e+00     5.71842e+04     1.38419e+06
+        39         47     3.12206e-01     5.45500e+04     1.70176e+06
+        40         48     1.00000e+00     4.94563e+04     1.25232e+06
+        41         49     1.00000e+00     4.62127e+04     1.24853e+06
+        42         50     1.00000e+00     4.37307e+04     1.12415e+06
+        43         51     1.00000e+00     4.13302e+04     1.12130e+06
+        44         52     1.00000e+00     3.97519e+04     9.01464e+05
+        45         53     1.00000e+00     3.85098e+04     7.76057e+05
+        46         54     1.00000e+00     3.66885e+04     7.63759e+05
+        47         55     1.00000e+00     3.43908e+04     8.87544e+05
+        48         56     1.00000e+00     3.24808e+04     9.62704e+05
+        49         57     1.00000e+00     3.09182e+04     6.73712e+05
+        50         58     1.00000e+00     2.94257e+04     5.59699e+05
+        51         59     1.00000e+00     2.83644e+04     5.22005e+05
+        52         60     1.00000e+00     2.71204e+04     7.20584e+05
+        53         61     1.00000e+00     2.60757e+04     5.49673e+05
+        54         62     1.00000e+00     2.51825e+04     6.21620e+05
+        55         63     1.00000e+00     2.33438e+04     6.04726e+05
+        56         64     1.00000e+00     2.31594e+04     1.19623e+06
+        57         65     1.00000e+00     2.17658e+04     4.49132e+05
+        58         66     1.00000e+00     2.14055e+04     3.54346e+05
+        59         67     1.00000e+00     2.08906e+04     4.08001e+05
+        60         68     1.00000e+00     2.00542e+04     4.64323e+05
+        61         69     1.00000e+00     1.84139e+04     4.67253e+05
+        62         71     4.31524e-01     1.76110e+04     5.13597e+05
+        63         72     1.00000e+00     1.67705e+04     3.65754e+05
+        64         73     1.00000e+00     1.60038e+04     2.90082e+05
+        65         74     1.00000e+00     1.52791e+04     3.81993e+05
+        66         75     1.00000e+00     1.45253e+04     3.75320e+05
+        67         76     1.00000e+00     1.40110e+04     3.11936e+05
+        68         77     1.00000e+00     1.32034e+04     3.32603e+05
+        69         78     1.00000e+00     1.26257e+04     3.12560e+05
+        70         79     1.00000e+00     1.21443e+04     2.94658e+05
+        71         80     1.00000e+00     1.17776e+04     5.35976e+05
+        72         81     1.00000e+00     1.07181e+04     2.17118e+05
+        73         82     1.00000e+00     1.05220e+04     2.00010e+05
+        74         83     1.00000e+00     1.01924e+04     2.05854e+05
+        75         84     1.00000e+00     9.95502e+03     2.90738e+05
+        76         85     1.00000e+00     9.77318e+03     2.11356e+05
+        77         86     1.00000e+00     9.72837e+03     1.79380e+05
+        78         95     0.00000e+00     9.72837e+03     1.79380e+05
+Step Size below TolX
+Per-frame error on training set: 0.06146
+Per-character tagging error (training set): 0.06146
+Per-character tagging error (test set): 0.090249
+
+Baseline OCR with 400 hidden states with SGD
+============================================
+
+Fold 1 of 10...
+Precomputing positive part of gradient...
+Performing optimization using SGD...
+Iteration 1 of 75: error is ~20.7339
+Cumulative parameter change: 624.9585
+Iteration 2 of 75: error is ~14.1869
+Cumulative parameter change: 889.1578
+Iteration 3 of 75: error is ~9.4592
+Cumulative parameter change: 705.3392
+Iteration 4 of 75: error is ~7.3696
+Cumulative parameter change: 488.7183
+Iteration 5 of 75: error is ~6.2148
+Cumulative parameter change: 381.2979
+Iteration 6 of 75: error is ~5.4788
+Cumulative parameter change: 305.6976
+Iteration 7 of 75: error is ~4.9744
+Cumulative parameter change: 254.1051
+Iteration 8 of 75: error is ~4.6017
+Cumulative parameter change: 220.9492
+Iteration 9 of 75: error is ~4.3069
+Cumulative parameter change: 194.7033
+Iteration 10 of 75: error is ~4.0733
+Cumulative parameter change: 173.8904
+Iteration 11 of 75: error is ~3.8797
+Cumulative parameter change: 157.9333
+Iteration 12 of 75: error is ~3.722
+Cumulative parameter change: 144.9935
+Iteration 13 of 75: error is ~3.5814
+Cumulative parameter change: 135.7464
+Iteration 14 of 75: error is ~3.4666
+Cumulative parameter change: 126.7038
+Iteration 15 of 75: error is ~3.3563
+Cumulative parameter change: 119.73
+Iteration 16 of 75: error is ~3.2559
+Cumulative parameter change: 113.6141
+Iteration 17 of 75: error is ~3.1654
+Cumulative parameter change: 108.8365
+Iteration 18 of 75: error is ~3.0803
+Cumulative parameter change: 106.0523
+Iteration 19 of 75: error is ~3.0037
+Cumulative parameter change: 102.3922
+Iteration 20 of 75: error is ~2.9261
+Cumulative parameter change: 98.2344
+Iteration 21 of 75: error is ~2.8589
+Cumulative parameter change: 96.0004
+Iteration 22 of 75: error is ~2.7935
+Cumulative parameter change: 93.3702
+Iteration 23 of 75: error is ~2.7302
+Cumulative parameter change: 91.146
+Iteration 24 of 75: error is ~2.6699
+Cumulative parameter change: 87.385
+Iteration 25 of 75: error is ~2.613
+Cumulative parameter change: 86.4441
+Iteration 26 of 75: error is ~2.5555
+Cumulative parameter change: 85.1616
+Iteration 27 of 75: error is ~2.5039
+Cumulative parameter change: 81.8877
+Iteration 28 of 75: error is ~2.4562
+Cumulative parameter change: 79.1071
+Iteration 29 of 75: error is ~2.4051
+Cumulative parameter change: 77.2327
+Iteration 30 of 75: error is ~2.3599
+Cumulative parameter change: 78.4857
+Iteration 31 of 75: error is ~2.3159
+Cumulative parameter change: 74.5288
+Iteration 32 of 75: error is ~2.2714
+Cumulative parameter change: 73.351
+Iteration 33 of 75: error is ~2.2342
+Cumulative parameter change: 71.0149
+Iteration 34 of 75: error is ~2.193
+Cumulative parameter change: 70.2786
+Iteration 35 of 75: error is ~2.1549
+Cumulative parameter change: 67.9724
+Iteration 36 of 75: error is ~2.1179
+Cumulative parameter change: 68.0722
+Iteration 37 of 75: error is ~2.0826
+Cumulative parameter change: 66.8123
+Iteration 38 of 75: error is ~2.0516
+Cumulative parameter change: 64.6586
+Iteration 39 of 75: error is ~2.0177
+Cumulative parameter change: 63.8011
+Iteration 40 of 75: error is ~1.9871
+Cumulative parameter change: 61.0038
+Iteration 41 of 75: error is ~1.9561
+Cumulative parameter change: 59.7217
+Iteration 42 of 75: error is ~1.9274
+Cumulative parameter change: 59.6581
+Iteration 43 of 75: error is ~1.9
+Cumulative parameter change: 56.8359
+Iteration 44 of 75: error is ~1.8728
+Cumulative parameter change: 57.2036
+Iteration 45 of 75: error is ~1.8449
+Cumulative parameter change: 56.6938
+Iteration 46 of 75: error is ~1.8208
+Cumulative parameter change: 56.4232
+Iteration 47 of 75: error is ~1.7939
+Cumulative parameter change: 54.5757
+Iteration 48 of 75: error is ~1.7726
+Cumulative parameter change: 51.3333
+Iteration 49 of 75: error is ~1.7503
+Cumulative parameter change: 50.6198
+Iteration 50 of 75: error is ~1.7256
+Cumulative parameter change: 50.5173
+Iteration 51 of 75: error is ~1.7033
+Cumulative parameter change: 50.2293
+Iteration 52 of 75: error is ~1.6843
+Cumulative parameter change: 49.3746
+Iteration 53 of 75: error is ~1.6632
+Cumulative parameter change: 48.7383
+Iteration 54 of 75: error is ~1.6438
+Cumulative parameter change: 46.7283
+Iteration 55 of 75: error is ~1.6258
+Cumulative parameter change: 45.8875
+Iteration 56 of 75: error is ~1.6064
+Cumulative parameter change: 44.2571
+Iteration 57 of 75: error is ~1.588
+Cumulative parameter change: 45.2899
+Iteration 58 of 75: error is ~1.571
+Cumulative parameter change: 44.0035
+Iteration 59 of 75: error is ~1.5533
+Cumulative parameter change: 42.1629
+Iteration 60 of 75: error is ~1.5383
+Cumulative parameter change: 42.1884
+Iteration 61 of 75: error is ~1.5228
+Cumulative parameter change: 40.9404
+Iteration 62 of 75: error is ~1.5057
+Cumulative parameter change: 39.5817
+Iteration 63 of 75: error is ~1.4905
+Cumulative parameter change: 38.4035
+Iteration 64 of 75: error is ~1.4764
+Cumulative parameter change: 38.4497
+Iteration 65 of 75: error is ~1.462
+Cumulative parameter change: 39.3197
+Iteration 66 of 75: error is ~1.4478
+Cumulative parameter change: 39.6525
+Iteration 67 of 75: error is ~1.4356
+Cumulative parameter change: 37.3652
+Iteration 68 of 75: error is ~1.4216
+Cumulative parameter change: 36.4551
+Iteration 69 of 75: error is ~1.4096
+Cumulative parameter change: 36.3178
+Iteration 70 of 75: error is ~1.3965
+Cumulative parameter change: 35.444
+Iteration 71 of 75: error is ~1.3832
+Cumulative parameter change: 34.9308
+Iteration 72 of 75: error is ~1.3719
+Cumulative parameter change: 34.8744
+Iteration 73 of 75: error is ~1.3607
+Cumulative parameter change: 32.8035
+Iteration 74 of 75: error is ~1.3485
+Cumulative parameter change: 32.7296
+Iteration 75 of 75: error is ~1.3376
+Cumulative parameter change: 33.3006
+Per-character tagging error (training set): 0.060498
+Per-character tagging error (test set): 0.071621
