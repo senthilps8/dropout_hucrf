@@ -16,6 +16,7 @@ function err = ocr_experiment(type, no_hidden, lambda, rho)
 
     
     % Use Matlab-implementations
+    rng(100);
     delete crf_grad.mex* forward_backward_crf.mex* viterbi_crf.mex* crf_herding.mex* crf_herding_2nd_order.mex* hidden_crf_herding.mex* hidden_crf_herding_2nd_order.mex* viterbi_crf.mex* viterbi_crf_2nd_order.mex* viterbi_hidden_crf.mex* viterbi_hidden_crf_2nd_order.mex*
 
     % Process inputs
@@ -78,7 +79,7 @@ function err = ocr_experiment(type, no_hidden, lambda, rho)
     end
 
     % Perform 10-fold cross-validation
-    no_folds = 10;
+    no_folds = 4;
     err = ones(no_folds, 1);
     perm = randperm(length(X)); ind = 1;
     fold_size = floor(length(X) ./ no_folds);
