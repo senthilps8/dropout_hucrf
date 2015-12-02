@@ -15,6 +15,7 @@ function err = ocr_experiment(type, no_hidden, lambda, rho)
 % University of California, San Diego
 
     
+    rng(100);
     % Use Matlab-implementations
     delete crf_grad.mex* forward_backward_crf.mex* viterbi_crf.mex* crf_herding.mex* crf_herding_2nd_order.mex* hidden_crf_herding.mex* hidden_crf_herding_2nd_order.mex* viterbi_crf.mex* viterbi_crf_2nd_order.mex* viterbi_hidden_crf.mex* viterbi_hidden_crf_2nd_order.mex*
 
